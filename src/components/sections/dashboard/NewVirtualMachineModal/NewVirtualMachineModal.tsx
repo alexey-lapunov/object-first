@@ -69,7 +69,13 @@ const Step1: React.FC<{
     <Controller
       name="name"
       control={control}
-      rules={{ required: 'Name is required' }}
+      rules={{
+        required: 'Name is required',
+        maxLength: {
+          value: 80,
+          message: 'Name is too long',
+        },
+      }}
       render={({ field }) => (
         <TextField
           {...field}
@@ -122,6 +128,7 @@ const Step2: React.FC<{
               ? errors.cpu.message
               : 'Enter number of processors up to 12'
           }
+          slotProps={{ htmlInput: { min: 1 } }}
         />
       )}
     />
@@ -156,7 +163,8 @@ const Step2: React.FC<{
           helperText={
             errors.ram ? errors.ram.message : 'Enter memory amount up to 50GB'
           }
-          onChange={(e) => setValue('ram', Number(e.target.value))}
+          slotProps={{ htmlInput: { min: 1 } }}
+          onChange={(e) => field.onChange(Number(e.target.value) || '')}
         />
       )}
     />
@@ -168,7 +176,7 @@ const Step2: React.FC<{
         render={({ field }) => (
           <Slider
             {...field}
-            value={field.value || 16}
+            value={typeof field.value === 'number' ? field.value : 16}
             track={false}
             min={0}
             max={50}
@@ -188,8 +196,8 @@ const Step2: React.FC<{
               '& .MuiSlider-rail': {
                 background: `linear-gradient(
                     to right,
-                    grey 0%,
-                    grey ${(16 / 50) * 100}%,
+                    #F6EEF6 0%,
+                    #F6EEF6 ${(16 / 50) * 100}%,
                     #4CAF50 ${(16 / 50) * 100}%,
                     #4CAF50 ${(32 / 50) * 100}%,
                     #FFEB3B ${(32 / 50) * 100}%,
@@ -244,11 +252,12 @@ export const NewVirtualMachineModal: React.FC<{
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     watch,
     setValue,
     reset,
   } = useForm<FormValues>({
+    mode: 'onChange',
     defaultValues: { name: '', cpu: 1, ram: 16, enableCpuPerformance: false },
   });
   const dispatch = useDispatch();
@@ -265,7 +274,7 @@ export const NewVirtualMachineModal: React.FC<{
           state: 'Running',
           hostServer: '43C07-27',
           cpu: `${data.cpu} CPU`,
-          memory: `${data.ram} GB`,
+          memory: `${data.ram} GiB`,
           uptime: '0:00:00:00',
           alerts: { type: 'success', count: 0, label: 'All good' },
         }),
@@ -353,7 +362,12 @@ export const NewVirtualMachineModal: React.FC<{
                     Back
                   </Button>
                 )}
-                <Button type="submit" variant="contained" color="primary">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  disabled={!isValid && step < 3}
+                >
                   {step === 3 ? 'Create' : 'Next'}
                 </Button>
               </Box>

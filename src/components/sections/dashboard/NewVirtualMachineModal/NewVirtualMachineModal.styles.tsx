@@ -97,6 +97,9 @@ export const ReviewValue = styled('p')({
 
   fontSize: '1rem',
   color: '#1E1A20',
+
+  wordBreak: 'break-word',
+  whiteSpace: 'normal',
 });
 
 export const EditButton = styled(IconButton)({
