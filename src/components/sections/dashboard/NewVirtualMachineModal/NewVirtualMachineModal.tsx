@@ -8,6 +8,7 @@ import {
 } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
+import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import {
@@ -129,6 +130,7 @@ const Step2: React.FC<{
               : 'Enter number of processors up to 12'
           }
           slotProps={{ htmlInput: { min: 1 } }}
+          onChange={(e) => field.onChange(Number(e.target.value) || '')}
         />
       )}
     />
@@ -326,9 +328,14 @@ export const NewVirtualMachineModal: React.FC<{
                   key={stepItem.id}
                   variant="body1"
                   color="inherit"
+                  display="flex"
+                  alignItems="center"
                   fontWeight={step === stepItem.id ? 'bold' : 'regular'}
                 >
-                  {step === stepItem.id && '-'} {step > stepItem.id && '+'}{' '}
+                  {step === stepItem.id && '-'}{' '}
+                  {step > stepItem.id && (
+                    <CheckIcon style={{ height: '1rem' }} />
+                  )}{' '}
                   {stepItem.label}
                 </Typography>
               ))}

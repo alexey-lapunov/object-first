@@ -34,7 +34,7 @@ export const TrendAreaChart: React.FC<IProps> = ({ data, className }) => (
         <XAxis dataKey="date" tick={{ fontSize: 12, fill: '#6b7280' }} />
         <YAxis
           tick={{ fontSize: 12, fill: '#6b7280' }}
-          tickFormatter={(value) => `${value} TB`}
+          tickFormatter={(value) => `${value}\u00A0TB`}
         />
         <Tooltip formatter={(value) => `${value} TB`} />
         <Area

@@ -24,8 +24,15 @@ export const StyledTableRow = styled(TableRow)({
 export const StyledTableCell = styled(TableCell)({
   [`&.${tableCellClasses.head}`]: {
     border: 0,
-    fontWeight: 400,
 
+    fontWeight: 400,
     color: '#495057',
+  },
+});
+
+export const StyledHeadRow = styled(TableRow)({
+  '& th': {
+    fontFamily: 'Manrope, sans-serif',
+    padding: '0 1rem',
   },
 });

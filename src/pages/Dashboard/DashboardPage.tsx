@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import AddIcon from '@mui/icons-material/Add';
-import { Button, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import {
@@ -12,6 +12,8 @@ import {
   VirtualMachinesTable,
 } from '@/components/sections/dashboard';
 import { RootState } from '@/store/store';
+
+import { Title } from './DashboardPage.styles';
 
 const lineChartData = [
   { date: '11/06', value: 200 },
@@ -63,9 +65,9 @@ export const DashboardPage = () => {
       </ChartsContainer>
 
       <Header>
-        <Typography variant="h6">
-          Virtual machines {tableData.length}
-        </Typography>
+        <Title variant="h6">
+          Virtual machines <span>{tableData.length}</span>
+        </Title>
         <Button
           variant="contained"
           startIcon={<AddIcon />}

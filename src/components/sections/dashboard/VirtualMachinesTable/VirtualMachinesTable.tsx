@@ -5,12 +5,15 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 
 import { Alert, CopyableText, LinearProgress } from '@/components/UI';
 import { VirtualMachinesState } from '@/store/virtualMachinesSlice';
 
-import { StyledTableCell, StyledTableRow } from './VirtualMachinesTable.styles';
+import {
+  StyledHeadRow,
+  StyledTableCell,
+  StyledTableRow,
+} from './VirtualMachinesTable.styles';
 
 interface IProps {
   data: VirtualMachinesState['list'];
@@ -27,7 +30,7 @@ const MAX_MEMORY = 64;
 export const VirtualMachinesTable: React.FC<IProps> = ({ data }) => (
   <Table>
     <TableHead>
-      <TableRow>
+      <StyledHeadRow>
         <StyledTableCell>
           <p>ID</p>
         </StyledTableCell>
@@ -37,7 +40,7 @@ export const VirtualMachinesTable: React.FC<IProps> = ({ data }) => (
         <StyledTableCell>Memory</StyledTableCell>
         <StyledTableCell>Uptime</StyledTableCell>
         <StyledTableCell>Alerts</StyledTableCell>
-      </TableRow>
+      </StyledHeadRow>
     </TableHead>
     <TableBody>
       {data.map((row, index) => {
