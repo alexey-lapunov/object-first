@@ -176,7 +176,7 @@ const Step2: React.FC<{
         render={({ field }) => (
           <Slider
             {...field}
-            value={typeof field.value === 'number' ? field.value : 16}
+            value={field.value ?? 1}
             track={false}
             min={0}
             max={50}
